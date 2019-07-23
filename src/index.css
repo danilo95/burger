@@ -175,7 +175,11 @@ select{
     border-radius: .5em;
     background-color: #fff;
 }
-
+.subtitle{
+  font-size: 60%;
+  color: #6c757d;
+  align-self: center;
+}
 
 
 /* animation part */

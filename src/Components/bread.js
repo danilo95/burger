@@ -1,7 +1,6 @@
 import React from "react";
-import Controls from "./controls";
+import Controls from "./Controls";
 import HamburgerContent from "./HamburgerContent";
-import Acountlist from "./Acount";
 class Bread extends React.Component {
 
 
@@ -60,7 +59,7 @@ getHistory=()=>{
             setHistory={this.setHistory}
             getHistory={this.getHistory}
           />
-        <Acountlist ingredients={this.state.ingredients}/>
+        
         </div>
       </>
     );

@@ -74,17 +74,16 @@ class Controls extends React.Component {
   }
 
 changecurrency=e=>{
-
   let to=e.target.value
   let amount=this.props.baseprice
-  var crrncy = {'eur': {'usd': 1.11,'yuan':7.67,'simbol':'€'}, 'usd': {'eur': 0.90,'yuan':6.88,'simbol':'$'}, 'yuan': {'eur': 0.13,'usd':0.15,'simbol':'¥'}}
+  var crrncy = {'eur': {'usd': 1.1152122544,'simbol':'€'}, 'usd': {'eur': 0.8966902902,'simbol':'$'}}
   if (this.from ===to){
     
   } else {
     amount = amount * crrncy[this.from][to];
-    document.getElementById('price').innerHTML=`current price: ${crrncy[to]['simbol']} ${amount}`;
+    document.getElementById('price').innerHTML=`current price: ${crrncy[to]['simbol']} ${this.NumberFormat(amount)}`;
     this.from=to;
-    
+    this.props.setNewPrice(amount);
 }
 }
 saveburger=()=>{
@@ -106,7 +105,6 @@ getburgerhistory=()=>{
         <select name="select" onChange={this.changecurrency}>
   <option value="usd" >$ Dollar </option> 
   <option value="eur" >€ Euro</option>
-  <option value="yuan">¥ Yuan</option>
 </select>
 </label>
 </div>
@@ -116,6 +114,9 @@ getburgerhistory=()=>{
               <div className="row" key={ingredients.id}>
                 <label>
                   {ingredients.ingredient}: {ingredients.units}
+                </label>
+                <label className="subtitle"> Cost:
+                  {this.NumberFormat(ingredients.price)}
                 </label>
                 <input
                   type="submit"
