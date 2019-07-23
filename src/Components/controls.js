@@ -9,6 +9,7 @@ class Controls extends React.Component {
     this.temphamburger = null;
     this.temparray = null;
     this.temp = null;
+    this.from='usd';
   }
   NumberFormat = numbervalue => {
     return parseFloat(Math.round(numbervalue * 100) / 100).toFixed(2);
@@ -72,10 +73,37 @@ class Controls extends React.Component {
     );
     return newArray;
   }
+
+changecurrency=e=>{
+
+  let to=e.target.value
+  let amount=this.props.baseprice
+  var crrncy = {'eur': {'usd': 1.12,'yuan':7.70,'simbol':'€'}, 'usd': {'eur': 0.89,'yuan':6.88,'simbol':'$'}, 'yuan': {'eur': 0.13,'usd':0.15,'simbol':'¥'}}
+  if (this.from ===to){
+    
+  } else {
+    amount = amount * crrncy[this.from][to];
+    document.getElementById('price').innerHTML=`current price: ${crrncy[to]['simbol']} ${amount}`;
+    this.from=to;
+    
+}
+}
+
+
   render() {
     return (
       <>
-        <h3>{`Current Price: $ ${this.NumberFormat(this.props.baseprice)}`}</h3>
+      <div className="row-currency">
+        <h3 id="price">{`Current Price: $ ${this.NumberFormat(this.props.baseprice)}`}</h3>
+        <label>
+    Change Currency: 
+        <select name="select" onChange={this.changecurrency}>
+  <option value="usd" >$ Dollar </option> 
+  <option value="eur" >€ Euro</option>
+  <option value="yuan">¥ Yuan</option>
+</select>
+</label>
+</div>
         <div className="controls">
           {this.props.ingredients.map(ingredients => {
             return (

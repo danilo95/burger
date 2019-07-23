@@ -6,7 +6,7 @@ const HamburgerContent = props => {
       {
         <>
           {props.hamburger.map((hamburgerclass,index) => {
-            return <div className={`${hamburgerclass} animated  bounceInUp`}  key={index} />;
+            return <div className={`${hamburgerclass} animated bounceInUp`}  key={index} />;
           })}
         </>
       }

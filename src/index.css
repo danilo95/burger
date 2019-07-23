@@ -120,6 +120,63 @@ width: 100%
   flex-flow: column;
   margin-left: 10px;
 }
-
-
+.row-currency{
+  display: flex;
+  flex-flow: column;
+}
+select{
+  margin-left: 10px;
+  color: #444;
+    line-height: 1.3;
+    padding: .6em 1.4em .5em .8em;
+    border: 1px solid #aaa;
+    box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+    border-radius: .5em;
+    background-color: #fff;
+}
 /* animation part */
+.animated {
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 2s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes bounceInUp {
+  0% {
+     opacity: 0;
+     -webkit-transform: translateY(2000px);
+  }
+  60% {
+     opacity: 1;
+     -webkit-transform: translateY(-30px);
+  }
+  80% {
+     -webkit-transform: translateY(10px);
+  }
+  100% {
+     -webkit-transform: translateY(0);
+  }
+}
+
+@keyframes bounceInUp {
+  0% {
+     opacity: 0;
+     transform: translateY(2000px);
+  }
+  60% {
+     opacity: 1;
+     transform: translateY(-30px);
+  }
+  80% {
+     transform: translateY(10px);
+  }
+  100% {
+     transform: translateY(0);
+  }
+}
+
+.bounceInUp {
+  -webkit-animation-name: bounceInUp;
+  animation-name: bounceInUp;
+}
