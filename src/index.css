@@ -1,6 +1,8 @@
 :root {
   --blue: #007bff;
   --red: #dc3545;
+  --green: #32a852;
+  --greenhover: #386344;
 }
 body {
   margin: 0;
@@ -83,8 +85,47 @@ background: linear-gradient(3deg, rgba(171,68,17,1) 100% rgba(214,125,16,1) 35%)
 }
 .morebtn:hover {
   cursor: pointer;
+}
+.savebutton{
+  position: relative;
+  width: 100px;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.5em;
+  background-color: var(--green);
+  color: #fff;
+  padding: 0 5px;
+  font-family: 'Oswald', sans-serif;
+  outline: 0;
+  margin-top: 25px;
+}
+.savebutton:hover {
+  cursor: pointer;
+  background-color:  var(--greenhover);
 
 }
+.previusburger{
+  position: relative;
+  width: 153px;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.5em;
+  background-color: var(--green);
+  color: #fff;
+  padding: 0 5px;
+  font-family: 'Oswald', sans-serif;
+  outline: 0;
+  margin-top: 25px;
+}
+.previusburger:hover {
+  cursor: pointer;
+  background-color:  var(--red);
+
+}
+
+
 .lessbtn{
   position: relative;
   width: 100px;
@@ -134,6 +175,9 @@ select{
     border-radius: .5em;
     background-color: #fff;
 }
+
+
+
 /* animation part */
 .animated {
   -webkit-animation-duration: 0.5s;
@@ -179,4 +223,38 @@ select{
 .bounceInUp {
   -webkit-animation-name: bounceInUp;
   animation-name: bounceInUp;
+}
+
+/* effect for destroy ingredient */
+@-webkit-keyframes bounceOutRight {
+  0% {
+     -webkit-transform: translateX(0);
+  }
+  20% {
+     opacity: 1;
+     -webkit-transform: translateX(-20px);
+  }
+  100% {
+     opacity: 0;
+     -webkit-transform: translateX(2000px);
+  }
+}
+
+@keyframes bounceOutRight {
+  0% {
+     transform: translateX(0); 
+  }
+  20% {
+     opacity: 1;
+     transform: translateX(-20px);
+  }
+  100% {
+     opacity: 0;
+     transform: translateX(2000px);
+  }
+}
+
+.bounceOutRight {
+  -webkit-animation-name: bounceOutRight;
+  animation-name: bounceOutRight;
 }

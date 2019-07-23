@@ -48,7 +48,6 @@ class Controls extends React.Component {
       }
       return value;
     });
-
     this.props.setNewIngredient(
       temparray,
       this.deleteingrediente(this.temphamburger, this.actualingredient)
@@ -78,7 +77,7 @@ changecurrency=e=>{
 
   let to=e.target.value
   let amount=this.props.baseprice
-  var crrncy = {'eur': {'usd': 1.12,'yuan':7.70,'simbol':'€'}, 'usd': {'eur': 0.89,'yuan':6.88,'simbol':'$'}, 'yuan': {'eur': 0.13,'usd':0.15,'simbol':'¥'}}
+  var crrncy = {'eur': {'usd': 1.11,'yuan':7.67,'simbol':'€'}, 'usd': {'eur': 0.90,'yuan':6.88,'simbol':'$'}, 'yuan': {'eur': 0.13,'usd':0.15,'simbol':'¥'}}
   if (this.from ===to){
     
   } else {
@@ -88,13 +87,20 @@ changecurrency=e=>{
     
 }
 }
-
+saveburger=()=>{
+  this.props.setHistory();
+  document.getElementById('history').type="submit";
+}
+getburgerhistory=()=>{
+  this.props.getHistory();
+}
 
   render() {
     return (
       <>
       <div className="row-currency">
         <h3 id="price">{`Current Price: $ ${this.NumberFormat(this.props.baseprice)}`}</h3>
+  
         <label>
     Change Currency: 
         <select name="select" onChange={this.changecurrency}>
@@ -106,7 +112,7 @@ changecurrency=e=>{
 </div>
         <div className="controls">
           {this.props.ingredients.map(ingredients => {
-            return (
+            return ( 
               <div className="row" key={ingredients.id}>
                 <label>
                   {ingredients.ingredient}: {ingredients.units}
@@ -126,9 +132,13 @@ changecurrency=e=>{
                   onClick={this.moreingredient}
                 />
               </div>
+                   
+                 
             );
           })}
         </div>
+        <input type="submit" value="Save" className="savebutton" onClick={this.saveburger}></input>
+        <input id="history" type="hidden" value="Re-Build last Hamburger" className="previusburger" onClick={this.getburgerhistory}></input>
       </>
     );
   }

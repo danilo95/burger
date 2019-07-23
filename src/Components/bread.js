@@ -1,8 +1,10 @@
 import React from "react";
 import Controls from "./controls";
 import HamburgerContent from "./HamburgerContent";
-
+import Acountlist from "./Acount";
 class Bread extends React.Component {
+
+
   state = {
     baseprice: 1,
     ingredients: [
@@ -11,47 +13,36 @@ class Bread extends React.Component {
       { id: 2, ingredient: "bacon", units: 0, price: 0.25 },
       { id: 3, ingredient: "meat", units: 0, price: 1.5 }
     ],
-    hamburger: []
+    hamburger: [] 
+   ,history:[]
   };
 
   setNewIngredient = (value, newingredients) => {
     this.setState({ ingredients: value });
     this.setState({ hamburger: newingredients });
+    
   };
   setNewPrice = newprice => {
     this.setState({ baseprice: newprice });
   };
-
+setHistory=()=>{
+  localStorage.setItem('history',JSON.stringify(this.state.hamburger));
+  localStorage.setItem('history-ingredients',JSON.stringify(this.state.ingredients));
+  localStorage.setItem('history-price',JSON.stringify(this.state.baseprice));
+}
+getHistory=()=>{
+  this.setState({ hamburger: JSON.parse(localStorage.getItem("history"))});
+  this.setState({ ingredients: JSON.parse(localStorage.getItem("history-ingredients"))});
+  this.setState({ baseprice: JSON.parse(localStorage.getItem("history-price"))});
+}
   componentDidMount = () => {
-    if (
-      localStorage.getItem("hamburgers") === null &&
-      localStorage.getItem("ingredients") === null &&
-      localStorage.getItem("baseprice") === null
-    ) {
-      localStorage.setItem("hamburger", JSON.stringify(this.state.hamburger));
-      localStorage.setItem(
-        "ingredients",
-        JSON.stringify(this.state.ingredients)
-      );
-      localStorage.setItem("baseprice", JSON.stringify(this.state.baseprice));
-    } else {
-      this.setState({
-        ingredients: JSON.parse(localStorage.getItem("ingredients"))
-      });
-      this.setState({
-        hamburger: JSON.parse(localStorage.getItem("hamburger"))
-      });
-      this.setState({
-        baseprice: JSON.parse(localStorage.getItem("baseprice"))
-      });
+    if(localStorage.getItem("history") === null){
+      localStorage.setItem('history',JSON.stringify(this.state.hamburger));
+    } else{
+      document.getElementById('history').type="submit";
     }
   };
-
-  componentDidUpdate = () => {
-    localStorage.setItem("hamburger", JSON.stringify(this.state.hamburger));
-    localStorage.setItem("ingredients", JSON.stringify(this.state.ingredients));
-    localStorage.setItem("baseprice", JSON.stringify(this.state.baseprice));
-  };
+  
 
   render() {
     return (
@@ -66,7 +57,10 @@ class Bread extends React.Component {
             hamburger={this.state.hamburger}
             setNewIngredient={this.setNewIngredient}
             setNewPrice={this.setNewPrice}
+            setHistory={this.setHistory}
+            getHistory={this.getHistory}
           />
+        <Acountlist ingredients={this.state.ingredients}/>
         </div>
       </>
     );

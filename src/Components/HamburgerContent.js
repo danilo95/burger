@@ -1,17 +1,22 @@
 import React from "react";
 
-const HamburgerContent = props => {
+class HamburgerContent extends React.Component{
+ 
+render() {
   return (
     <>
       {
         <>
-          {props.hamburger.map((hamburgerclass,index) => {
+          {this.props.hamburger.map((hamburgerclass,index) => {
             return <div className={`${hamburgerclass} animated bounceInUp`}  key={index} />;
           })}
         </>
       }
+     
     </>
   );
 };
+}
+
 
 export default HamburgerContent;
