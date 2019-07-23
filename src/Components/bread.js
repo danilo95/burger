@@ -6,6 +6,7 @@ class Bread extends React.Component {
 
   state = {
     baseprice: 1,
+    currency: 'usd',
     ingredients: [
       { id: 0, ingredient: "Salad", units: 0, price: 0.25 },
       { id: 1, ingredient: "cheese", units: 0, price: 0.5 },
@@ -20,6 +21,13 @@ class Bread extends React.Component {
     this.setState({ ingredients: value });
     this.setState({ hamburger: newingredients });
     
+  };
+  setNewCurrencyprices = (value) => {
+    this.setState({ ingredients: value });
+    console.log(this.state.currency)
+  };
+  setNewCurrency= newcurrency =>{
+    this.setState({ currency: newcurrency });
   };
   setNewPrice = newprice => {
     this.setState({ baseprice: newprice });
@@ -58,6 +66,9 @@ getHistory=()=>{
             setNewPrice={this.setNewPrice}
             setHistory={this.setHistory}
             getHistory={this.getHistory}
+            currency={this.state.currency}
+            setNewCurrency={this.setNewCurrency}
+            setNewCurrencyprices={this.setNewCurrencyprices}
           />
         
         </div>

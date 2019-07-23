@@ -9,7 +9,6 @@ class Controls extends React.Component {
     this.temphamburger = null;
     this.temparray = null;
     this.temp = null;
-    this.from='usd';
   }
   NumberFormat = numbervalue => {
     return parseFloat(Math.round(numbervalue * 100) / 100).toFixed(2);
@@ -77,15 +76,27 @@ changecurrency=e=>{
   let to=e.target.value
   let amount=this.props.baseprice
   var crrncy = {'eur': {'usd': 1.1152122544,'simbol':'€'}, 'usd': {'eur': 0.8966902902,'simbol':'$'}}
-  if (this.from ===to){
+  if (this.props.currency ===to){
     
   } else {
-    amount = amount * crrncy[this.from][to];
+    amount = amount * crrncy[this.props.currency][to];
     document.getElementById('price').innerHTML=`current price: ${crrncy[to]['simbol']} ${this.NumberFormat(amount)}`;
-    this.from=to;
     this.props.setNewPrice(amount);
+    this.props.setNewCurrency(to);
+    this.updatePricesCurrency(crrncy[this.props.currency][to]);
 }
+
 }
+
+updatePricesCurrency=(currency)=>{
+  this.temp = this.props.ingredients;
+  this.temparray = this.temp.map(value => {
+  value.price=currency*value.price; 
+    return value;
+  });
+  this.props.setNewCurrencyprices(this.temparray);
+}
+
 saveburger=()=>{
   this.props.setHistory();
   document.getElementById('history').type="submit";
@@ -115,7 +126,7 @@ getburgerhistory=()=>{
                 <label>
                   {ingredients.ingredient}: {ingredients.units}
                 </label>
-                <label className="subtitle"> Cost:
+                <label className="subtitle"> Cost: 
                   {this.NumberFormat(ingredients.price)}
                 </label>
                 <input

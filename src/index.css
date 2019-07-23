@@ -180,7 +180,11 @@ select{
   color: #6c757d;
   align-self: center;
 }
-
+@media (max-width: 500px) {
+  .hambuger-container{
+    width: auto;
+  }
+}
 
 /* animation part */
 .animated {
