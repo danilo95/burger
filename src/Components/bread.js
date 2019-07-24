@@ -64,7 +64,7 @@ class Bread extends React.Component {
   render() {
     return (
       <>
-      <div class="message animated fadeIn" id="message">The Hamburger Was Saved</div>
+      <div className="message animated fadeIn" id="message">The Hamburger Was Saved</div>
         <div className="main-hamburger">
           <div className="bread-top" />
           <HamburgerContent hamburger={this.state.hamburger} />
