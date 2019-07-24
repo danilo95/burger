@@ -55,19 +55,19 @@ class Bread extends React.Component {
   componentDidMount = () => {
     if (localStorage.getItem("history") === null) {
       localStorage.setItem("history", JSON.stringify(this.state.hamburger));
-    } if(localStorage.getItem("history").length>2) {
+    }
+    if (localStorage.getItem("history").length > 2) {
       document.getElementById("history").type = "submit";
-      
     }
   };
 
   render() {
     return (
       <>
-      <div className="main-hamburger">
-        <div className="bread-top" />
-        <HamburgerContent hamburger={this.state.hamburger} />
-        <div className="bread-buttom" />
+        <div className="main-hamburger">
+          <div className="bread-top" />
+          <HamburgerContent hamburger={this.state.hamburger} />
+          <div className="bread-buttom" />
         </div>
         <div className="control-container">
           <Controls

@@ -36,15 +36,15 @@ class Controls extends React.Component {
     this.acualIngredient = this.props.ingredients[e.target.id].ingredient;
     this.price = this.props.ingredients[e.target.id].price;
     this.temp = this.props.ingredients;
-    this.temporalHamburger = this.props.hamburger; 
+    this.temporalHamburger = this.props.hamburger;
     this.temporalArray = this.temp.map(value => {
       if (value.ingredient === this.acualIngredient) {
         value.units = this.actualValue + 1;
       }
       return value;
     });
-    this.temporalHamburger.push(this.acualIngredient); 
-    this.props.setNewIngredient(this.temporalArray, this.temporalHamburger); 
+    this.temporalHamburger.push(this.acualIngredient);
+    this.props.setNewIngredient(this.temporalArray, this.temporalHamburger);
     this.modificatePrice(this.actualValue, this.price, "plus");
   };
 
@@ -123,11 +123,13 @@ class Controls extends React.Component {
     document.getElementById("finish").type = "submit";
     this.props.getHistory();
   };
-  buyHamburger=()=>{
-document.getElementById('hambuger-container').classList.add("animated","bounceOutRight");
-alert('thanks,come back soon..')
-setTimeout("location.href = './'",2000);
-  }
+  buyHamburger = () => {
+    document
+      .getElementById("hambuger-container")
+      .classList.add("animated", "bounceOutRight");
+    alert("thanks,come back soon..");
+    setTimeout("location.href = './'", 2000);
+  };
 
   render() {
     return (
@@ -175,26 +177,26 @@ setTimeout("location.href = './'",2000);
           })}
         </div>
         <div className="controls-content">
-        <input
-          type="submit"
-          value="Save"
-          className="savebutton"
-          onClick={this.saveBurger}
-        />
-        <input
-          id="history"
-          type="hidden"
-          value="Re-Build last Hamburger"
-          className="previusburger"
-          onClick={this.getburgerhistory}
-        />
-         <input
-          id="finish"
-          type="hidden"
-          value="Buy"
-          className="previusburger"
-          onClick={this.buyHamburger}
-        />
+          <input
+            type="submit"
+            value="Save"
+            className="savebutton"
+            onClick={this.saveBurger}
+          />
+          <input
+            id="history"
+            type="hidden"
+            value="Re-Build last Hamburger"
+            className="previusburger"
+            onClick={this.getburgerhistory}
+          />
+          <input
+            id="finish"
+            type="hidden"
+            value="Buy"
+            className="previusburger"
+            onClick={this.buyHamburger}
+          />
         </div>
       </>
     );
