@@ -180,6 +180,18 @@ select{
   color: #6c757d;
   align-self: center;
 }
+.main-hamburger{
+  width:100%;
+  margin:auto;
+  height: 300px;
+    overflow: auto;
+}
+.controls-content{
+  display: flex;
+  justify-content:space-around;;
+  align-items: center;
+width: 100%
+}
 @media (max-width: 500px) {
   .hambuger-container{
     width: auto;

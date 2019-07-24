@@ -3,64 +3,81 @@ import React from "react";
 class Controls extends React.Component {
   constructor() {
     super();
-    this.actualvalue = null;
-    this.actualingredient = null;
+    this.actualValue = null;
+    this.acualIngredient = null;
     this.price = null;
-    this.temphamburger = null;
-    this.temparray = null;
+    this.temporalHamburger = null;
+    this.temporalArray = null;
     this.temp = null;
   }
-  NumberFormat = numbervalue => {
-    return parseFloat(Math.round(numbervalue * 100) / 100).toFixed(2);
-  };
+  NumberFormat = numberValue => {
+    let numberToReturn;
+    switch (this.props.currency) {
+      case "usd":
+        numberToReturn = new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD"
+        }).format(numberValue);
 
-  moreingredient = e => {
-    this.actualvalue = this.props.ingredients[e.target.id].units;
-    this.actualingredient = this.props.ingredients[e.target.id].ingredient;
+        break;
+      case "eur":
+        numberToReturn = new Intl.NumberFormat("de-DE", {
+          style: "currency",
+          currency: "EUR"
+        }).format(numberValue);
+
+        break;
+      default:
+    }
+    return numberToReturn;
+  };
+  moreIngridients = e => {
+    this.actualValue = this.props.ingredients[e.target.id].units;
+    this.acualIngredient = this.props.ingredients[e.target.id].ingredient;
     this.price = this.props.ingredients[e.target.id].price;
     this.temp = this.props.ingredients;
-    this.temphamburger = this.props.hamburger; //nuevo array temporal
-    this.temparray = this.temp.map(value => {
-      if (value.ingredient === this.actualingredient) {
-        value.units = this.actualvalue + 1;
+    this.temporalHamburger = this.props.hamburger; 
+    this.temporalArray = this.temp.map(value => {
+      if (value.ingredient === this.acualIngredient) {
+        value.units = this.actualValue + 1;
       }
       return value;
     });
-    this.temphamburger.push(this.actualingredient); //se agrego funcion para hamburger
-    this.props.setNewIngredient(this.temparray, this.temphamburger); // se agrego temphamburger para que funcione
-    this.modificateprice(this.actualvalue, this.price, "plus");
+    this.temporalHamburger.push(this.acualIngredient); 
+    this.props.setNewIngredient(this.temporalArray, this.temporalHamburger); 
+    this.modificatePrice(this.actualValue, this.price, "plus");
   };
 
-  lessingredient = e => {
-    this.actualvalue = this.props.ingredients[e.target.id].units;
-    this.actualingredient = this.props.ingredients[e.target.id].ingredient;
+  lessIngridients = e => {
+    this.actualValue = this.props.ingredients[e.target.id].units;
+    this.acualIngredient = this.props.ingredients[e.target.id].ingredient;
     this.price = this.props.ingredients[e.target.id].price;
-    this.temphamburger = this.props.hamburger; //nuevo array temporal
-    this.modificateprice(this.actualvalue, this.price, "less");
-    this.actualvalue === 0
-      ? (this.actualvalue = 0)
-      : (this.actualvalue = this.actualvalue - 1);
+    this.temporalHamburger = this.props.hamburger; //nuevo array temporal
+    this.modificatePrice(this.actualValue, this.price, "less");
+    this.actualValue === 0
+      ? (this.actualValue = 0)
+      : (this.actualValue = this.actualValue - 1);
     let temp = this.props.ingredients;
-    let temparray = temp.map(value => {
-      if (value.ingredient === this.actualingredient) {
-        value.units = this.actualvalue;
+    let temporalArray = temp.map(value => {
+      if (value.ingredient === this.acualIngredient) {
+        value.units = this.actualValue;
       }
       return value;
     });
     this.props.setNewIngredient(
-      temparray,
-      this.deleteingrediente(this.temphamburger, this.actualingredient)
-    ); 
+      temporalArray,
+      this.deleteIngrediente(this.temporalHamburger, this.acualIngredient)
+    );
   };
-  modificateprice(actualvalue, price, flag) {
-    if (actualvalue === 0 && flag === "less") {
+  modificatePrice(actualValue, price, flag) {
+    if (actualValue === 0 && flag === "less") {
     } else {
       flag === "plus"
         ? this.props.setNewPrice(price + this.props.baseprice)
         : this.props.setNewPrice(this.props.baseprice - price);
     }
   }
-  deleteingrediente(ingredientsarray, valuetodelete) {
+  deleteIngrediente(ingredientsarray, valuetodelete) {
     let indextoeliminate = ingredientsarray.findIndex(newingredient => {
       if (newingredient === valuetodelete) {
         return newingredient;
@@ -72,61 +89,64 @@ class Controls extends React.Component {
     return newArray;
   }
 
-changecurrency=e=>{
-  let to=e.target.value
-  let amount=this.props.baseprice
-  var crrncy = {'eur': {'usd': 1.1152122544,'simbol':'€'}, 'usd': {'eur': 0.8966902902,'simbol':'$'}}
-  if (this.props.currency ===to){
-    
-  } else {
-    amount = amount * crrncy[this.props.currency][to];
-    document.getElementById('price').innerHTML=`current price: ${crrncy[to]['simbol']} ${this.NumberFormat(amount)}`;
-    this.props.setNewPrice(amount);
-    this.props.setNewCurrency(to);
-    this.updatePricesCurrency(crrncy[this.props.currency][to]);
-}
+  changeCurrency = e => {
+    let to = e.target.value;
+    let amount = this.props.baseprice;
+    var crrncy = {
+      eur: { usd: 1.1152122544, simbol: "€" },
+      usd: { eur: 0.8966902902, simbol: "$" }
+    };
+    if (this.props.currency === to) {
+    } else {
+      amount = amount * crrncy[this.props.currency][to];
+      this.props.setNewPrice(amount);
+      this.props.setNewCurrency(to);
+      this.updatePricesCurrency(crrncy[this.props.currency][to]);
+    }
+  };
 
-}
+  updatePricesCurrency = currency => {
+    this.temp = this.props.ingredients;
+    this.temporalArray = this.temp.map(value => {
+      value.price = currency * value.price;
+      return value;
+    });
+    this.props.setNewCurrencyprices(this.temporalArray);
+  };
 
-updatePricesCurrency=(currency)=>{
-  this.temp = this.props.ingredients;
-  this.temparray = this.temp.map(value => {
-  value.price=currency*value.price; 
-    return value;
-  });
-  this.props.setNewCurrencyprices(this.temparray);
-}
-
-saveburger=()=>{
-  this.props.setHistory();
-  document.getElementById('history').type="submit";
-}
-getburgerhistory=()=>{
-  this.props.getHistory();
-}
+  saveBurger = () => {
+    this.props.setHistory();
+    document.getElementById("history").type = "submit";
+  };
+  getburgerhistory = () => {
+    this.props.getHistory();
+  };
 
   render() {
     return (
       <>
-      <div className="row-currency">
-        <h3 id="price">{`Current Price: $ ${this.NumberFormat(this.props.baseprice)}`}</h3>
-  
-        <label>
-    Change Currency: 
-        <select name="select" onChange={this.changecurrency}>
-  <option value="usd" >$ Dollar </option> 
-  <option value="eur" >€ Euro</option>
-</select>
-</label>
-</div>
+        <div className="row-currency">
+          <h3 id="price">{`Current Price: ${this.NumberFormat(
+            this.props.baseprice
+          )}`}</h3>
+          <label>
+            Change Currency:
+            <select name="select" id="select" onChange={this.changeCurrency}>
+              <option value="usd">$ Dollar </option>
+              <option value="eur">€ Euro</option>
+            </select>
+          </label>
+        </div>
         <div className="controls">
           {this.props.ingredients.map(ingredients => {
-            return ( 
+            return (
               <div className="row" key={ingredients.id}>
                 <label>
                   {ingredients.ingredient}: {ingredients.units}
                 </label>
-                <label className="subtitle"> Cost: 
+                <label className="subtitle">
+                  {" "}
+                  Cost:
                   {this.NumberFormat(ingredients.price)}
                 </label>
                 <input
@@ -134,23 +154,34 @@ getburgerhistory=()=>{
                   value="less"
                   className="lessbtn"
                   id={ingredients.id}
-                  onClick={this.lessingredient}
+                  onClick={this.lessIngridients}
                 />
                 <input
                   type="submit"
                   value="MORE"
                   className="morebtn"
                   id={ingredients.id}
-                  onClick={this.moreingredient}
+                  onClick={this.moreIngridients}
                 />
               </div>
-                   
-                 
             );
           })}
         </div>
-        <input type="submit" value="Save" className="savebutton" onClick={this.saveburger}></input>
-        <input id="history" type="hidden" value="Re-Build last Hamburger" className="previusburger" onClick={this.getburgerhistory}></input>
+        <div className="controls-content">
+        <input
+          type="submit"
+          value="Save"
+          className="savebutton"
+          onClick={this.saveBurger}
+        />
+        <input
+          id="history"
+          type="hidden"
+          value="Re-Build last Hamburger"
+          className="previusburger"
+          onClick={this.getburgerhistory}
+        />
+        </div>
       </>
     );
   }
