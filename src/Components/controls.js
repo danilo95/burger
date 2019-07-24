@@ -117,10 +117,17 @@ class Controls extends React.Component {
   saveBurger = () => {
     this.props.setHistory();
     document.getElementById("history").type = "submit";
+    document.getElementById("finish").type = "submit";
   };
   getburgerhistory = () => {
+    document.getElementById("finish").type = "submit";
     this.props.getHistory();
   };
+  buyHamburger=()=>{
+document.getElementById('hambuger-container').classList.add("animated","bounceOutRight");
+alert('thanks,come back soon..')
+setTimeout("location.href = './'",2000);
+  }
 
   render() {
     return (
@@ -180,6 +187,13 @@ class Controls extends React.Component {
           value="Re-Build last Hamburger"
           className="previusburger"
           onClick={this.getburgerhistory}
+        />
+         <input
+          id="finish"
+          type="hidden"
+          value="Buy"
+          className="previusburger"
+          onClick={this.buyHamburger}
         />
         </div>
       </>
