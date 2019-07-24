@@ -118,6 +118,13 @@ class Controls extends React.Component {
     this.props.setHistory();
     document.getElementById("history").type = "submit";
     document.getElementById("finish").type = "submit";
+    this.showSavedMessage();
+  };
+  showSavedMessage = () => {
+    document.getElementById("message").style.display = "flex";
+    setTimeout(() => {
+      document.getElementById("message").style.display = "none";
+    }, 2000);
   };
   getburgerhistory = () => {
     document.getElementById("finish").type = "submit";
