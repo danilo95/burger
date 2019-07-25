@@ -208,8 +208,7 @@ select {
   height: 50px;
   font-weight: bold;
   font-size: 30px;
-  display:none;
-  
+  display: none;
 }
 
 @media (max-width: 500px) {
@@ -301,7 +300,6 @@ select {
   -webkit-animation-name: bounceOutRight;
   animation-name: bounceOutRight;
 }
-
 
 @-webkit-keyframes fadeIn {
   from {
