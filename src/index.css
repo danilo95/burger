@@ -222,6 +222,9 @@ select {
   .message {
     font-size: 20px;
   }
+  .controls-content {
+    flex-wrap: wrap;
+  }
 }
 
 /* animation part */
@@ -329,3 +332,4 @@ select {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
 }
+
