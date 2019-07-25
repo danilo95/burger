@@ -1,8 +1,10 @@
 :root {
   --blue: #007bff;
+  --deep_blue: #000080;
   --red: #dc3545;
   --green: #32a852;
   --greenhover: #386344;
+  --orange_red: #ff4500;
 }
 body {
   margin: 0;
@@ -90,6 +92,7 @@ body {
 }
 .morebtn:hover {
   cursor: pointer;
+  background-color: var(--deep_blue);
 }
 .savebutton {
   position: relative;
@@ -143,6 +146,7 @@ body {
 }
 .lessbtn:hover {
   cursor: pointer;
+  background-color: var(--orange_red);
 }
 .controls {
   display: flex;
